@@ -1,3 +1,9 @@
+## Contributions
+## Zijun Feng & Yiqun Xiao: Model Selection Part
+## Xiangyu Wang: Statistical Analysis Part
+## Mengqi Li: Model Diagnosis Part
+
+
 rm(list=ls())
 
 if (!require("leaps")) {
@@ -46,7 +52,7 @@ vars4 <- leaps_all_vars[which.min(leaps_summary$bic), ]
 leaps_summary$bic[which.min(leaps_summary$bic)]
 par(mfrow=c(1, 1))
 png("../image/BIC_TopModels.png", width=1200, height=1200, res=150)
-plot(leaps)
+plot(leaps, main="Top Models under BIC criterion")
 graphics.off()
 
 # adjusted R^2 returns a model with 8 variables
@@ -96,42 +102,39 @@ summary(model)
 # Multicollinearity
 car::vif(lm(BODYFAT~WEIGHT+ABDOMEN+WRIST,data = data))
 
-# Linearity and Homoscedasticity
-png("../image/StdResidual.png", width=800, height=800, res=150)
-plot(predict(model),rstandard(model),pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-     xlab="Predicted Body Fat %", ylab="Standardized Residuals",main=" Standardized Residual Plot")
-abline(a=0,b=0,col="black",lwd=3)
-graphics.off()
 
 # Normality
 png("../image/QQ.png", width=800, height=800, res=150)
-qqnorm(rstandard(model),pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-       main="Normal Q-Q Plot of the Residuals")
-abline(a=0,b=1,col="black",lwd=3)
+qqnorm(rstandard(model), pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
+       main="Normal QQ Plot of the Residuals")
+abline(a=0, b=1, col="red", lwd=2)
 graphics.off()
 shapiro.test(rstandard(model))
 
+# Linearity and Homoscedasticity
+png("../image/StdResidual.png", width=800, height=800, res=150)
+plot(predict(model),rstandard(model),pch=18,cex=1.2,cex.lab=1.5,cex.main=1.5,
+     xlab="Predicted Value", ylab="Standardized Residuals",main="Standardized Residual Plot")
+abline(h=0, col="red", lwd=2)
+graphics.off()
 
 # Leverage points and Influential points
-pii = hatvalues(model)
 png("../image/Leverage.png", width=800, height=800, res=150)
-plot(1:n,pii,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-     xlab="Index (Each Observation)",ylab="Pii",main="Leverage Values (Pii)")
+plot(1:n,hatvalues(model), type="p", pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
+     xlab="Index", ylab="hii", main="Leverage Points")
 graphics.off()
 
 # Cook's distance
 png("../image/CooksDistance.png", width=800, height=800, res=150)
-cooki = cooks.distance(model)
-plot(1:n,cooki,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-     xlab="Index (Each Observation)",ylab="Cook's Distance",main="Influence Values (Cook's Distance)")
+plot(1:n,cooks.distance(model), type="p", pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
+     xlab="Index", ylab="Cook's Distance", main="influential Points")
 graphics.off()
 
 # DFFITS
 png("../image/DIFFITS.png", width=800, height=800, res=150)
-diff = dffits(model)
-plot(1:n,diff,type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-     xlab="Index (Each Observation)",ylab="DFFITS",main="Influence Values (DFFITS)")
-abline(a=0,b=0,col="black",lwd=3)
+plot(1:n,dffits(model), type="p", pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
+     xlab="Index", ylab="DFFITS", main="influential Points")
+abline(h=0, col="red", lwd=2)
 graphics.off()
 
 
@@ -139,14 +142,14 @@ graphics.off()
 dfbeta = dfbetas(model)
 png("../image/DFBETAS.png", width=800, height=1200, res=150)
 par(mfrow = c(3,1))
-plot(1:n,dfbeta[,2],type="p",pch=19,cex=1.2,cex.lab=1.5,cex.main=1.5,
-     xlab="Index (Each Observation)",ylab="DFBETAS:WEIGHT",main="Influence Values (DFBETAS)")
-abline(a=0,b=0,col="black",lwd=3)
-plot(1:n,dfbeta[,3],type="p",pch=19,cex=1.2,cex.lab=1.5,
-     xlab="Index (Each Observation)",ylab="DFBETAS:ABDOMEN")
-abline(a=0,b=0,col="black",lwd=3)
-plot(1:n,dfbeta[,4],type="p",pch=19,cex=1.2,cex.lab=1.5,
-     xlab="Index (Each Observation)",ylab="DFBETAS:WRIST")
-abline(a=0,b=0,col="black",lwd=3)
+plot(1:n,dfbeta[,2], type="p",pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
+     xlab="Index",ylab="DFBETAS:WEIGHT",main="influential Points")
+abline(h=0, col="red", lwd=2)
+plot(1:n,dfbeta[,3], type="p", pch=18, cex=1.2, cex.lab=1.5,
+     xlab="Index",ylab="DFBETAS:ABDOMEN")
+abline(h=0, col="red", lwd=2)
+plot(1:n,dfbeta[,4], type="p", pch=18, cex=1.2, cex.lab=1.5,
+     xlab="Index",ylab="DFBETAS:WRIST")
+abline(h=0, col="red", lwd=2)
 graphics.off()
 

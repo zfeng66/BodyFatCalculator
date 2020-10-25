@@ -1,3 +1,9 @@
+## Contributions
+## Zijun Feng: Identify incorrect records / outliers from the linear relationship between Bodyfat and 1/Density.
+## Mengqi Li: Identify incorrect records / outliers from the equality between Adiposity and calculated BMI.
+## Xiangyu Wang & Yiqun Xiao: Identify incorrect records / outliers from other variables.
+
+
 rm(list=ls())
 
 BodyFat = read.csv("../data/BodyFat.csv")
