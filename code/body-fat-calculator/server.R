@@ -103,6 +103,13 @@ server <- function(input, output, session) {
                is.numeric(wrist_cm()) & wrist_cm()>=8  & wrist_cm()<=40)
   })
   
+  ## text: Body Fat Analysis: 
+  output$bodyfatText1 <- renderText({
+    if (input_correct() & output_correct()){
+      return("Body Fat Analysis: ")
+    }else{return(NULL)}
+  })
+  
   ## body fat percentile
   output$bodyfatPercentile <- renderText({
     if (input_correct() & output_correct()){
@@ -111,10 +118,12 @@ server <- function(input, output, session) {
     }else{return(NULL)}
   })
   
-  ## text: Body Fat Analysis: 
-  output$bodyfatText1 <- renderText({
+  ## body fat prediction interval
+  output$bodyfatInterval <- renderText({
     if (input_correct() & output_correct()){
-      return("Body Fat Analysis: ")
+      bodyfatPredict<-predict(model, data.frame(WEIGHT=weight_lbs(), ABDOMEN=abdomen_cm(), WRIST=wrist_cm()), interval="prediction", level=0.95)
+      bodyfatIntervalResult<-paste0("[ ", format(round(bodyfatPredict[2], digits = 2), nsmall = 2), "% , ", format(round(bodyfatPredict[3], digits = 2), nsmall = 2), "% ]")
+      return(paste0("Your 95% body fat prediction interval is: ", bodyfatIntervalResult))
     }else{return(NULL)}
   })
   

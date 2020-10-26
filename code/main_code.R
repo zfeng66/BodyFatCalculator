@@ -38,16 +38,16 @@ leaps_summary <- summary(leaps)
 leaps_all_vars <- leaps_summary$which[,-1]
 
 # Criterion1: adjusted R^2
-vars1 <- leaps_all_vars[which.max(leaps_summary$adjr2), ]  
+(vars1 <- leaps_all_vars[which.max(leaps_summary$adjr2), ])
 
 # Criterion2: Mallow's Cp
-vars2 <- leaps_all_vars[which.min(leaps_summary$cp), ]
+(vars2 <- leaps_all_vars[which.min(leaps_summary$cp), ])
 
 # Criterion3: AIC
-vars3 <- leaps_all_vars[which.min(leaps_summary$bic+(2-log(length(y)))*as.numeric(rowSums(leaps_all_vars))), ] 
+(vars3 <- leaps_all_vars[which.min(leaps_summary$bic+(2-log(length(y)))*as.numeric(rowSums(leaps_all_vars))), ])
 
 # Criterion4: BIC
-vars4 <- leaps_all_vars[which.min(leaps_summary$bic), ]  
+(vars4 <- leaps_all_vars[which.min(leaps_summary$bic), ])
 
 leaps_summary$bic[which.min(leaps_summary$bic)]
 par(mfrow=c(1, 1))
@@ -59,9 +59,6 @@ graphics.off()
 # Mallow's Cp returns a model with 6 variables
 # AIC returns a model with 7 variables
 # BIC returns a model with 3 variables
-
-(re <- cbind(adjusted_R = leaps_summary$adjr2[which.min(leaps_summary$bic)], cp = leaps_summary$cp[which.min(leaps_summary$bic)], 
-             aic = leaps_summary$bic[which.min(leaps_summary$bic)]+(2-log(length(y)))*sum(leaps_all_vars[which.min(leaps_summary$bic),]), bic = leaps_summary$bic[which.min(leaps_summary$bic)]))
 
 # Leave one out cross validation
 train_ctrl <- trainControl(method = "LOOCV")
@@ -94,13 +91,14 @@ loocv4
 
 ## Statistical Analysis
 
-model = lm(y~x[,vars4])
+model = lm(BODYFAT~WEIGHT+ABDOMEN+WRIST,data = data)
 summary(model)
+predict(model, data.frame(WEIGHT=154, ABDOMEN=85, WRIST=17), se.fit=TRUE, interval="prediction", level=0.95)
 
 ## Model Diagnosis
 
 # Multicollinearity
-car::vif(lm(BODYFAT~WEIGHT+ABDOMEN+WRIST,data = data))
+car::vif(model)
 
 
 # Normality
@@ -113,7 +111,7 @@ shapiro.test(rstandard(model))
 
 # Linearity and Homoscedasticity
 png("../image/StdResidual.png", width=800, height=800, res=150)
-plot(predict(model),rstandard(model),pch=18,cex=1.2,cex.lab=1.5,cex.main=1.5,
+plot(predict(model),rstandard(model), pch=18, cex=1.2, cex.lab=1.5, cex.main=1.5,
      xlab="Predicted Value", ylab="Standardized Residuals",main="Standardized Residual Plot")
 abline(h=0, col="red", lwd=2)
 graphics.off()

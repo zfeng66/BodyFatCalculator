@@ -80,6 +80,8 @@ ui <- fluidPage(
           h3(textOutput(outputId = "bodyfatText1")),
           tags$style("#bodyfatPercentile {font-size:18px; }"),
           textOutput(outputId = "bodyfatPercentile"),
+          tags$style("#bodyfatInterval {font-size:18px; }"),
+          textOutput(outputId = "bodyfatInterval"),
           tags$style("#bodyfatText2 {font-size:18px; }"),
           textOutput(outputId = "bodyfatText2"),
           br(),
