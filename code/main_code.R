@@ -151,7 +151,7 @@ plot(1:n,dfbeta[,4], type="p", pch=18, cex=1.2, cex.lab=1.5,
 abline(h=0, col="red", lwd=2)
 graphics.off()
 
-# Remove Rplot.pdf
-fn <- "Rplot.pdf"
+# Remove Rplots.pdf
+fn <- "Rplots.pdf"
 if (file.exists(fn))
   file.remove(fn)
