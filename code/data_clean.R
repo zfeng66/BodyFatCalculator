@@ -146,3 +146,7 @@ dim(data_clean)
 summary(data_clean)
 write.csv(data_clean, "../data/BodyFat_clean.csv", row.names=F)
 
+# Remove Rplot.pdf
+fn <- "Rplot.pdf"
+if (file.exists(fn)) 
+  file.remove(fn)
