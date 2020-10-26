@@ -5,6 +5,6 @@ account: zijunfeng
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 3088563
-bundleId: 3781415
+bundleId: 3781610
 url: https://zijunfeng.shinyapps.io/body-fat-calculator/
-when: 1603672151.28182
+when: 1603678066.13839

@@ -120,11 +120,11 @@ ui <- fluidPage(
             style="font-size:20px; color:#4169e1; "
           ),
           p(br(),
-            "Contact information (Email):",
+            "Contact information for author/maintainer (Email):",
             br(),
-            "xwang2439@wisc.edu", 
+            "Xiangyu Wang (xwang2439@wisc.edu)", 
             br(),
-            "zfeng66@wisc.edu",
+            "Zijun Feng (zfeng66@wisc.edu)",
             style="font-size:16px; color:#808080; ")
         )
       )
