@@ -52,7 +52,7 @@ which(data$HEIGHT<40)
 data[42,4] = sqrt(703*data[42,]$WEIGHT/data[42,]$ADIPOSITY)
 # The height for sample 42 is 29.5 inches which is impossible.
 # Considering that BMI = 703 * weight(lbs) / height^2(inches) and its BMI and Weight seem reasonable,
-# we replace the height for sample 42 by calculating height = sqrt(703 * weight(lbs)/BMI).
+# we replace the height for sample 42 by calculating height = sqrt(703 * weight(lbs) / BMI).
 
 
 # ADIPOSITY
@@ -140,7 +140,7 @@ hist(data$WRIST)
 
 
 # Based on the results above, sample 39 is an outlier so we delete it.
-# In conclusion, we delete sample 39,48,76,96,172,182,163,216,221 and replace the height for sample 42 by calculating height = sqrt(703 * weight(lbs)/BMI).
+# In conclusion, we delete sample 39,48,76,96,172,182,163,216,221 and replace the height for sample 42 by calculating height = sqrt(703 * weight(lbs) / BMI).
 data_clean = data[-c(39,48,76,96,172,182,163,216,221),]
 dim(data_clean)
 summary(data_clean)
@@ -148,5 +148,5 @@ write.csv(data_clean, "../data/BodyFat_clean.csv", row.names=F)
 
 # Remove Rplot.pdf
 fn <- "Rplot.pdf"
-if (file.exists(fn)) 
+if (file.exists(fn))
   file.remove(fn)

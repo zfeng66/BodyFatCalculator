@@ -32,7 +32,7 @@ model1 = lm(y~x) # consider main effects
 model2 = lm(y~poly(x, 2)) # consider main effects and second order terms
 anova(model1, model2) # second order terms are not significant
 
-# best subsets regression
+# Best subsets regression
 leaps <- regsubsets(x=x, y=y, nbest = 8)
 leaps_summary <- summary(leaps)
 leaps_all_vars <- leaps_summary$which[,-1]
@@ -153,5 +153,5 @@ graphics.off()
 
 # Remove Rplot.pdf
 fn <- "Rplot.pdf"
-if (file.exists(fn)) 
+if (file.exists(fn))
   file.remove(fn)
