@@ -22,7 +22,8 @@ We tried to build up a regression model to predict body fat percentage. We did m
     2. `code/BodyFat_clean.csv` is for model selection, statistical analysis and model diagnostics.
     3. `code/body-fat-calculator/` folder contains code for body fat calculator on Shiny App.
 -	an `image` folder containing any figures/images/tables produced in analysis. The discriptions of figures in this folder can be found in correspoinding code comments.
-- a two-page executive **summary** file `BodyFat_summary.pdf`.
+-   a two-page executive **summary** file `BodyFat_summary.pdf`.
+-   a presentation file `BodyFat_presentation.pptx`.
 
 ## Body Fat Calculator (*Shiny App*):
 Link: <https://zijunfeng.shinyapps.io/body-fat-calculator/>
